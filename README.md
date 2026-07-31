@@ -96,7 +96,7 @@ Create Opportunity
 
 ### 8. GoHighLevel Contact Details
 
-![Contact Details](08-ghl-contact-details node.png)
+![Contact Details](08-ghl-contact-node.png)
 
 ## Skills Demonstrated
 
