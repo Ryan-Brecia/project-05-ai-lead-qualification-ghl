@@ -54,7 +54,7 @@ Create Opportunity
 
 ### 1. Complete n8n Workflow
 
-![Workflow](screenshots/01-n8n-workflow.png)
+![Workflow](01-n8n-workflow.png)
 
 ---
 
