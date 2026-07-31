@@ -60,43 +60,43 @@ Create Opportunity
 
 ### 2. Sample Lead Input
 
-![Lead Input](screenshots/02-edit-fields-input.png)
+![Lead Input](02-edit-fields-input.png)
 
 ---
 
 ### 3. AI Qualification Output
 
-![AI Output](screenshots/03-ai-agent-output.png)
+![AI Output](03-ai-agent-output.png)
 
 ---
 
 ### 4. Contact Created in GoHighLevel
 
-![GHL Contact](screenshots/04-ghl-contact-created.png)
+![GHL Contact](04-ghl-contact-created.png)
 
 ---
 
 ### 5. Opportunity Created in GoHighLevel
 
-![Opportunity](screenshots/05-ghl-opportunity-created.png)
+![Opportunity](05-ghl-opportunity-created.png)
 
 ---
 
 ### 6. Successful Workflow Execution
 
-![Execution](screenshots/06-successful-execution.png)
+![Execution](06-successful-execution.png)
 
 ---
 
 ### 7. GoHighLevel Marketing Pipeline
 
-![Pipeline](screenshots/07-ghl-pipeline.png)
+![Pipeline](07-ghl-pipeline.png)
 
 ---
 
 ### 8. GoHighLevel Contact Details
 
-![Contact Details](screenshots/08-ghl-contact-details.png)
+![Contact Details](08-ghl-contact-details.png)
 
 ## Skills Demonstrated
 
