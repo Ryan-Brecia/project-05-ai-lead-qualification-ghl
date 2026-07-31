@@ -1,0 +1,303 @@
+{
+  "name": "Project 5: AI Lead Qualification & GoHighLevel CRM Automation",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        16,
+        0
+      ],
+      "id": "5d000484-6ac0-4ee1-ac57-9e1e76c143c3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "33f4699c-0ea1-47a8-b3d0-64d93ac1f816",
+              "name": "FirstName",
+              "value": "ricky",
+              "type": "string"
+            },
+            {
+              "id": "f38ddb46-75fb-48b2-b326-54433b8b3070",
+              "name": "LastName",
+              "value": "nagas",
+              "type": "string"
+            },
+            {
+              "id": "0d7fb436-d565-42a7-9c7e-0cc87c701207",
+              "name": "email",
+              "value": "ricky.nagas@gmail.com",
+              "type": "string"
+            },
+            {
+              "id": "f41b7f11-b1a8-4cc6-9e79-c4a1f5f14ce3",
+              "name": "phone",
+              "value": "+639171234549",
+              "type": "string"
+            },
+            {
+              "id": "be839436-aa50-4fa1-b795-3c18d09394a6",
+              "name": "CompanyName",
+              "value": "ricky  barber shop",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "id": "d8d938a1-7205-47c6-85bb-5e7c547c5137",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "email": "={{ $('Edit Fields').item.json.email }}",
+        "phone": "={{ $('Edit Fields').item.json.phone }}",
+        "additionalFields": {
+          "firstName": "={{ $('Edit Fields').item.json.FirstName }}",
+          "lastName": "={{ $('Edit Fields').item.json.LastName }}",
+          "tags": "Google Ads, New Lead"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        816,
+        0
+      ],
+      "id": "3d8c7897-92e8-4311-8e07-e65bce4a024a",
+      "name": "Create or update a contact",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "dhsHTvxZkGb7Ct2h",
+          "name": "HighLevel account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "opportunity",
+        "pipelineId": "tKqRNnbu1NxkJHoyk7co",
+        "contactId": "={{ $json.id }}",
+        "name": "Google Ads Management",
+        "additionalFields": {
+          "stageId": "5cfdbfab-4d28-4267-b338-57e42242b949"
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -16
+      ],
+      "id": "a3495fc3-6209-4c23-9355-a7b0ee979830",
+      "name": "Create an opportunity",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "dhsHTvxZkGb7Ct2h",
+          "name": "HighLevel account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI sales assistant.\n\nAnalyze this lead:\n\nFirst Name: {{ $json.FirstName }}\nLast Name: {{ $json.LastName }}\nCompany: {{ $json.CompanyName }}\n\nReturn ONLY valid JSON.\n\n{\n  \"lead_score\": 85,\n  \"priority\": \"High\",\n  \"summary\": \"Interested in Google Ads management.\"\n}\n\nDo not include markdown, explanations, or any text outside the JSON object.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        464,
+        0
+      ],
+      "id": "617d68b0-c90c-43c7-ba1f-8df28d457e17",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        352,
+        256
+      ],
+      "id": "5a5858ad-9e2b-436f-8957-1cfa9a75e8d8",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "8m7PE76DwDBsa9zK",
+          "name": "Groq account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"lead_score\": 85,\n  \"priority\": \"High\",\n  \"summary\": \"Interested in Google Ads management.\",\n  \"first_name\": \"Ryan\",\n  \"last_name\": \"Brecia\",\n  \"company\": \"RB Tech Services\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        672,
+        256
+      ],
+      "id": "e02f7adf-239d-4968-87c8-fd46fe9c3fa7",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "contactId": "={{ $json.id }}",
+        "updateFields": {
+          "customFields": {
+            "values": [
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "TM7MK3G4e0rcaozI84WT",
+                  "mode": "list",
+                  "cachedResultName": "Lead Score"
+                },
+                "fieldValue": "={{ $('AI Agent').item.json.output.lead_score }}"
+              },
+              {
+                "fieldId": {
+                  "__rl": true,
+                  "value": "J7pB4xe7wfd1moiMCDpL",
+                  "mode": "list",
+                  "cachedResultName": "Priority"
+                },
+                "fieldValue": "={{ $('AI Agent').item.json.output.priority }}"
+              }
+            ]
+          }
+        },
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1888,
+        448
+      ],
+      "id": "6aee23db-dba0-421e-ab44-f4ce9c3677ce",
+      "name": "Update a contact",
+      "credentials": {
+        "highLevelOAuth2Api": {
+          "id": "dhsHTvxZkGb7Ct2h",
+          "name": "HighLevel account 2"
+        }
+      },
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create or update a contact": {
+      "main": [
+        [
+          {
+            "node": "Create an opportunity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Create or update a contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a contact": {
+      "main": [
+        []
+      ]
+    },
+    "Create an opportunity": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "5bd48229-8476-4cf5-a9b7-5d788e394e56",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "81feeeb69a6455e4dc4b4c0fa91aa81ec2875bbfb13122652f419225a59ca42b"
+  },
+  "nodeGroups": [],
+  "id": "0eZMnJuWxq5SmhW2",
+  "tags": []
+}
