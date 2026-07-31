@@ -60,7 +60,7 @@ Create Opportunity
 
 ### 2. Sample Lead Input
 
-![Input](screenshots/02-edit-fields-input.png)
+![Lead Input](screenshots/02-edit-fields-input.png)
 
 ---
 
@@ -72,7 +72,7 @@ Create Opportunity
 
 ### 4. Contact Created in GoHighLevel
 
-![Contact](screenshots/04-ghl-contact-created.png)
+![GHL Contact](screenshots/04-ghl-contact-created.png)
 
 ---
 
@@ -87,6 +87,16 @@ Create Opportunity
 ![Execution](screenshots/06-successful-execution.png)
 
 ---
+
+### 7. GoHighLevel Marketing Pipeline
+
+![Pipeline](screenshots/07-ghl-pipeline.png)
+
+---
+
+### 8. GoHighLevel Contact Details
+
+![Contact Details](screenshots/08-ghl-contact-details.png)
 
 ## Skills Demonstrated
 
